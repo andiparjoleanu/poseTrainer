@@ -1,10 +1,40 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191214165646_SetupIdentity.cs" />
+    <Compile Remove="Migrations\20191214165646_SetupIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20200218215139_ScriptValueChanges.cs" />
+    <Compile Remove="Migrations\20200218215139_ScriptValueChanges.Designer.cs" />
+    <Compile Remove="Migrations\20200219222130_ScriptValueChanges.cs" />
+    <Compile Remove="Migrations\20200219222130_ScriptValueChanges.Designer.cs" />
+    <Compile Remove="Migrations\20200219222228_ScriptValueChanges.cs" />
+    <Compile Remove="Migrations\20200219222228_ScriptValueChanges.Designer.cs" />
+    <Compile Remove="Migrations\20200223160403_frontRaise.cs" />
+    <Compile Remove="Migrations\20200223160403_frontRaise.Designer.cs" />
+    <Compile Remove="Migrations\20200228224006_lateralRaise.cs" />
+    <Compile Remove="Migrations\20200228224006_lateralRaise.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PoseTrainerLibrary\PoseTrainerLibrary.csproj" />
   </ItemGroup>
 
 </Project>
