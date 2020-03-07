@@ -11,6 +11,9 @@ namespace PoseTrainerLibrary.Context
     { 
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<History> Histories { get; set; }
+        public DbSet<BilateralExercisesHistory> BilateralExercisesHistories { get; set; }
+        public DbSet<UnilateralExercisesHistory> UnilateralExercisesHistories { get; set; }
+
 
         public PoseTrainerDbContext(DbContextOptions options) : base(options) { }
 
@@ -35,15 +38,22 @@ namespace PoseTrainerLibrary.Context
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "Extensii pentru biceps",
-                    Difficulty = "Medium",
+                    Type = "Bilateral",
                     Script = "js/bicepCurl.js"
                 },
                 new Exercise
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "Ridicări laterale cu greutăți",
-                    Difficulty = "Medium",
+                    Type = "Bilateral",
                     Script = "js/lateralRaise.js"
+                },
+                new Exercise
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Genuflexiuni",
+                    Type = "Unilateral",
+                    Script = "js/squats.js"
                 }
             );
 
@@ -58,6 +68,26 @@ namespace PoseTrainerLibrary.Context
                 entity.HasOne(history => history.Exercise)
                       .WithMany(user => user.Histories)
                       .HasForeignKey(history => history.ExerciseId);
+            });
+
+            modelBuilder.Entity<UnilateralExercisesHistory>(entity =>
+            {
+                entity.HasKey(history => new { history.UserId, history.ExerciseId });
+
+                entity.HasOne(x => x.History)
+                      .WithOne(x => x.UnilateralExercisesHistory)
+                      .HasForeignKey("UnilateralExercisesHistory", "UserId", "ExerciseId")
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<BilateralExercisesHistory>(entity =>
+            {
+                entity.HasKey(history => new { history.UserId, history.ExerciseId });
+
+                entity.HasOne(x => x.History)
+                      .WithOne(x => x.BilateralExercisesHistory)
+                      .HasForeignKey("BilateralExercisesHistory", "UserId", "ExerciseId")
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

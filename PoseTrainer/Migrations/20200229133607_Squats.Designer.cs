@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PoseTrainerLibrary.Context;
 
 namespace PoseTrainer.Migrations
 {
     [DbContext(typeof(PoseTrainerDbContext))]
-    partial class PoseTrainerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200229133607_Squats")]
+    partial class Squats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,37 +152,18 @@ namespace PoseTrainer.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PoseTrainerLibrary.Models.BilateralExercisesHistory", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ExerciseId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("LeftSideReps")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RightSideReps")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "ExerciseId");
-
-                    b.ToTable("BilateralExercisesHistories");
-                });
-
             modelBuilder.Entity("PoseTrainerLibrary.Models.Exercise", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Difficulty")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Script")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -190,24 +173,24 @@ namespace PoseTrainer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "feaa6363-d22d-4264-9603-3efd667b64a5",
+                            Id = "43674c53-dab8-4edd-80bf-6b90f961b433",
+                            Difficulty = "Medium",
                             Name = "Extensii pentru biceps",
-                            Script = "js/bicepCurl.js",
-                            Type = "Bilateral"
+                            Script = "js/bicepCurl.js"
                         },
                         new
                         {
-                            Id = "46699686-d8bc-4cc9-891c-3c4493187565",
+                            Id = "b5ccc9c5-c13f-491c-8492-794df92cefc1",
+                            Difficulty = "Medium",
                             Name = "Ridicări laterale cu greutăți",
-                            Script = "js/lateralRaise.js",
-                            Type = "Bilateral"
+                            Script = "js/lateralRaise.js"
                         },
                         new
                         {
-                            Id = "e70e8ec1-cb54-4820-8b6a-358002c22ad1",
+                            Id = "ea96608b-4f28-492d-adf6-81e8d3806341",
+                            Difficulty = "Low",
                             Name = "Genuflexiuni",
-                            Script = "js/squats.js",
-                            Type = "Unilateral"
+                            Script = "js/squats.js"
                         });
                 });
 
@@ -222,27 +205,17 @@ namespace PoseTrainer.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("NoRepsLeft")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoRepsRight")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId", "ExerciseId");
 
                     b.HasIndex("ExerciseId");
 
                     b.ToTable("Histories");
-                });
-
-            modelBuilder.Entity("PoseTrainerLibrary.Models.UnilateralExercisesHistory", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ExerciseId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Reps")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "ExerciseId");
-
-                    b.ToTable("UnilateralExercisesHistories");
                 });
 
             modelBuilder.Entity("PoseTrainerLibrary.Models.User", b =>
@@ -361,15 +334,6 @@ namespace PoseTrainer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PoseTrainerLibrary.Models.BilateralExercisesHistory", b =>
-                {
-                    b.HasOne("PoseTrainerLibrary.Models.History", "History")
-                        .WithOne("BilateralExercisesHistory")
-                        .HasForeignKey("PoseTrainerLibrary.Models.BilateralExercisesHistory", "UserId", "ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PoseTrainerLibrary.Models.History", b =>
                 {
                     b.HasOne("PoseTrainerLibrary.Models.Exercise", "Exercise")
@@ -381,15 +345,6 @@ namespace PoseTrainer.Migrations
                     b.HasOne("PoseTrainerLibrary.Models.User", "User")
                         .WithMany("Histories")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PoseTrainerLibrary.Models.UnilateralExercisesHistory", b =>
-                {
-                    b.HasOne("PoseTrainerLibrary.Models.History", "History")
-                        .WithOne("UnilateralExercisesHistory")
-                        .HasForeignKey("PoseTrainerLibrary.Models.UnilateralExercisesHistory", "UserId", "ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

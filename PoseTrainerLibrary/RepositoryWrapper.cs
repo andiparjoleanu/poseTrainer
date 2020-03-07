@@ -12,6 +12,8 @@ namespace PoseTrainerLibrary
         private PoseTrainerDbContext _context;
         private IExerciseRepository _exercise;
         private IHistoryRepository _history;
+        private IBilateralExercisesHistoryRepository _bilateralExercisesHistory;
+        private IUnilateralExercisesHistoryRepository _unilateralExercisesHistory;
 
         public IExerciseRepository ExerciseRepository
         {
@@ -36,6 +38,32 @@ namespace PoseTrainerLibrary
                 }
 
                 return _history;
+            }
+        }
+
+        public IUnilateralExercisesHistoryRepository UnilateralExercisesHistoryRepository
+        {
+            get
+            {
+                if (_unilateralExercisesHistory == null)
+                {
+                    _unilateralExercisesHistory = new UnilateralExercisesHistoryRepository(_context);
+                }
+
+                return _unilateralExercisesHistory;
+            }
+        }
+
+        public IBilateralExercisesHistoryRepository BilateralExercisesHistoryRepository
+        {
+            get
+            {
+                if (_bilateralExercisesHistory == null)
+                {
+                    _bilateralExercisesHistory = new BilateralExercisesHistoryRepository(_context);
+                }
+
+                return _bilateralExercisesHistory;
             }
         }
 

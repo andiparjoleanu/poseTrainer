@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PoseTrainerLibrary.Context;
 
 namespace PoseTrainer.Migrations
 {
     [DbContext(typeof(PoseTrainerDbContext))]
-    partial class PoseTrainerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200307114733_UnilateralAndBilateralExercises")]
+    partial class UnilateralAndBilateralExercises
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

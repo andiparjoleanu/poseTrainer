@@ -25,16 +25,20 @@ namespace PoseTrainerLibrary.Repositories
         public async Task CreateAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
         }
 
         public T Update(T entity)
         {
-            return _context.Set<T>().Update(entity).Entity;
+            T model = _context.Set<T>().Update(entity).Entity;
+            _context.SaveChanges();
+            return model;
         }
 
     }

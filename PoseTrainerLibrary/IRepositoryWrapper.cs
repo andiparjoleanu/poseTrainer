@@ -9,5 +9,7 @@ namespace PoseTrainerLibrary
     {
         IExerciseRepository ExerciseRepository { get; }
         IHistoryRepository HistoryRepository { get; }
+        IUnilateralExercisesHistoryRepository UnilateralExercisesHistoryRepository { get; }
+        IBilateralExercisesHistoryRepository BilateralExercisesHistoryRepository { get; }
     }
 }

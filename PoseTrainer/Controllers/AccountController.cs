@@ -33,6 +33,7 @@ namespace PoseTrainer.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             return new UserVM
             {
+                UserId = user.Id,
                 UserName = user.UserName
             };
         }
